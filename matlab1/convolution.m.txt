@@ -1,0 +1,24 @@
+% Read input values from file
+inputData = readmatrix('fir_input.txt');
+input_real = inputData(:, 1);
+input_imag = inputData(:, 2);
+
+% Read filter coefficients from file
+coeffData = readmatrix('coefficients.txt');
+coefficients_real = coeffData(:, 1);
+coefficients_imag = coeffData(:, 2);
+
+% Perform complex convolution
+input_complex = input_real + 1i * input_imag;
+coeff_complex = coefficients_real + 1i * coefficients_imag;
+result_complex = conv(input_complex, coeff_complex);
+
+% Extract real and imaginary parts of the convolution result
+result_real = real(result_complex);
+result_imag = imag(result_complex);
+
+% Display the convolution result
+for i = 6:105
+    fprintf('Result[%d]: %d + %di\n', i-6, result_real(i), result_imag(i));
+end
+
